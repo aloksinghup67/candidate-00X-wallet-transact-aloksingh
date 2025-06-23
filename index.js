@@ -8,8 +8,51 @@ const PORT = 3001;
 app.use(express.json());
 
 app.get("/", (req, res) => {
-  res.send("Transaction Processor Running");
+  res.send(`
+    <html>
+      <head>
+        <title>Transaction Processor</title>
+        <style>
+          body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #222;
+          }
+          h1 {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 20px;
+          }
+          pre {
+            background: #eee;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 14px;
+            max-width: 600px;
+            overflow-x: auto;
+          }
+        </style>
+      </head>
+      <body>
+        <h1>💸 Transaction Processor Running</h1>
+        <p>Use the following endpoints with <code>POST</code> requests:</p>
+        <pre>
+POST /api/transactions/purchase   { userId, amountUsd }
+POST /api/transactions/entry      { userId, contestId, tier }
+POST /api/transactions/payout     { userId, contestId, takePrize: true }
+POST /api/transactions/rollover   { userId, contestId }
+        </pre>
+        <p>Test with tools like <strong>Postman</strong> or <strong>curl</strong>.</p>
+      </body>
+    </html>
+  `);
 });
+
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
